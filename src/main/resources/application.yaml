@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: blue.admin_gateway
+
+server:
+  port: 12100
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+      base-path: /
+
+  endpoint:
+    health:
+      show-details: never
