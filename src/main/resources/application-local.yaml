@@ -1,0 +1,26 @@
+
+spring:
+  config:
+    activate:
+      on-profile: local
+
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: local-connectivity-mock
+              uri: ${CONNECTIVITY_MOCK_URL:http://admin-mock:8080}
+              predicates:
+                - Path=/internal/connectivity/mock
+                - Method=GET
+              filters:
+                - SetPath=/connectivity
+
+            - id: local-connectivity-auth-health
+              uri: ${CONNECTIVITY_AUTH_URL:http://admin-auth:12200}
+              predicates:
+                - Path=/internal/connectivity/auth-health
+                - Method=GET
+              filters:
+                - SetPath=/health
